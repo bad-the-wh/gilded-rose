@@ -1,8 +1,8 @@
 package gildedrose;
 
-public class AgingItem extends Item {
+public class ConjuredItem extends Item{
 
-    public AgingItem(int sellIn, int quality) {
+    public ConjuredItem(int sellIn, int quality) {
 
         super(sellIn, quality);
 

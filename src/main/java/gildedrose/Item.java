@@ -1,6 +1,6 @@
 package gildedrose;
 
-public class Item {
+public abstract class Item {
 
     private String itemName;
     private int sellIn;
@@ -8,11 +8,12 @@ public class Item {
 
     public Item (int sellIn, int quality){
 
-        // this.itemName = itemName;
         this.sellIn = sellIn;
         this.quality = quality;
 
-    }
+    };
+
+    public abstract void update();
 
     public String getItemName() {
         return itemName;

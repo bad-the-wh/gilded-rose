@@ -8,4 +8,8 @@ public class EventItem extends Item{
 
     }
 
+    @Override
+    public void update() {
+
+    }
 }

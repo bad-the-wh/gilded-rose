@@ -12,8 +12,8 @@ public class Shop {
 
     public void updateQuality() {
         for (Item item : this.items) {
-          item.setQuality(item.getQuality() - 1);
-          item.setSellIn(item.getSellIn() - 1);
+
+          }
         }
     };
 
@@ -69,5 +69,3 @@ public class Shop {
                 }
             }
         }*/
-
-}
