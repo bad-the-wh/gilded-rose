@@ -12,7 +12,7 @@ public class Shop {
 
     public void updateQuality() {
         for (Item item : this.items) {
-
+            item.update();
           }
         }
     };
