@@ -30,7 +30,20 @@ class GildedRoseTest {
 
     @Test
     void should_update_aging_quality() {
-
+        ArrayList<Item> items = new ArrayList<Item>();
+        items.add(new AgingItem(5, 8));
+        items.add(new AgingItem(0, 8));
+        items.add(new AgingItem(5, 50));
+        Shop shop = new Shop(items);
+        items.get(0).update();
+        items.get(1).update();
+        items.get(2).update();
+        assertEquals(9, shop.items.get(0).getQuality());
+        assertEquals(4, shop.items.get(0).getSellIn());
+        assertEquals(8, shop.items.get(1).getQuality());
+        assertEquals(0, shop.items.get(1).getSellIn());
+        assertEquals(50, shop.items.get(2).getQuality());
+        assertEquals(4, shop.items.get(2).getSellIn());
     }
 
     @Test
