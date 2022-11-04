@@ -20,6 +20,12 @@ public class ConjuredItem extends Item{
 
             }
 
+            else{
+
+                this.setSellIn(this.getSellIn() - 1);
+                this.setQuality(0);
+            }
+
         }
 
         else {
