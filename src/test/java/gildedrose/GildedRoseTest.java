@@ -33,4 +33,16 @@ class GildedRoseTest {
 
     }
 
+    @Test
+    void should_update_conjured_quality() {
+
+    }
+
+    @Test
+    void should_update_event_quality() {
+
+    }
+
+
+
 }

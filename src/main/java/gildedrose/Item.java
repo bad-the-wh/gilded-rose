@@ -6,7 +6,7 @@ public abstract class Item {
     private int sellIn;
     private int quality;
 
-    public Item (int sellIn, int quality){
+    public Item (Integer sellIn, int quality){
 
         this.sellIn = sellIn;
         this.quality = quality;

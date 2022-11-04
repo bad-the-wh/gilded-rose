@@ -11,5 +11,33 @@ public class ConjuredItem extends Item{
     @Override
     public void update() {
 
+        if(this.getSellIn() > 0){
+
+            if(this.getQuality() >1){
+
+                this.setSellIn(this.getSellIn() - 1);
+                this.setQuality(this.getQuality() - 2);
+
+            }
+
+        }
+
+        else {
+
+            if(this.getQuality() > 3){
+
+                this.setQuality(this.getQuality() - 4);
+
+            }
+
+            else{
+
+                this.setQuality(0);
+
+            }
+
+        }
+
+
     }
 }
