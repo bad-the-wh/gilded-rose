@@ -70,10 +70,10 @@ class GildedRoseTest {
         assertEquals(10, shop.items.get(2).getSellIn());
         assertEquals(50, shop.items.get(3).getQuality());
         assertEquals(8, shop.items.get(3).getSellIn());
-        assertEquals(50, shop.items.get(3).getQuality());
-        assertEquals(3, shop.items.get(3).getSellIn());
-        assertEquals(33, shop.items.get(4).getQuality());
+        assertEquals(50, shop.items.get(4).getQuality());
         assertEquals(3, shop.items.get(4).getSellIn());
+        assertEquals(33, shop.items.get(5).getQuality());
+        assertEquals(3, shop.items.get(5).getSellIn());
     }
 
     @Test
