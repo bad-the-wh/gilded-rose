@@ -9,7 +9,12 @@ public class AgingItem extends Item {
     }
 
     @Override
-    public void update() {
-
+    public void update(){
+        if (this.getSellIn() != 0 ){
+            this.setSellIn(this.getSellIn()-1);
+            if (this.getQuality() < 50) {
+                this.setQuality(this.getQuality() + 1);
+            }
+        }
     }
 }
