@@ -1,14 +1,21 @@
 package gildedrose;
 
+import java.util.ArrayList;
+
 public class Shop {
 
-    Item[] items;
+    public ArrayList<Item> items;
 
-    public Shop(Item[] items) {
+    public Shop(ArrayList<Item> items) {
         this.items = items;
     }
 
-    public void updateQuality () {
+    public void updateQuality() {
+        for (Item item : this.items) {
+          item.setQuality(item.getQuality() - 1);
+          item.setSellIn(item.getSellIn() - 1);
+        }
+    };
 
         /*for (int i = 0; i < items.length; i++){
             if(!items[i].getItemName().equals("Aged Brie")
@@ -62,8 +69,5 @@ public class Shop {
                 }
             }
         }*/
-
-
-    }
 
 }

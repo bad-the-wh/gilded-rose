@@ -6,9 +6,9 @@ public class Item {
     private int sellIn;
     private int quality;
 
-    public Item (String itemName, int sellIn, int quality){
+    public Item (int sellIn, int quality){
 
-        this.itemName = itemName;
+        // this.itemName = itemName;
         this.sellIn = sellIn;
         this.quality = quality;
 
