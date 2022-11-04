@@ -1,6 +1,5 @@
 package gildedrose;
 
-import javax.lang.model.util.ElementScanner14;
 
 public class EventItem extends Item{
 
