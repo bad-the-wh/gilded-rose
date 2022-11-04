@@ -8,6 +8,8 @@ public class GenericItem extends Item{
 
     }
 
+
+    @Override
     public void update(){
 
         if(this.getSellIn() > 0){
