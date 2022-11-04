@@ -61,6 +61,7 @@ class GildedRoseTest {
         items.get(2).update();
         items.get(3).update();
         items.get(4).update();
+        items.get(5).update();
         assertEquals(10, shop.items.get(0).getQuality());
         assertEquals(5, shop.items.get(0).getSellIn());
         assertEquals(0, shop.items.get(1).getQuality());
