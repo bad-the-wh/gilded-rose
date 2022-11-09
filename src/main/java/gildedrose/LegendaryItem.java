@@ -3,7 +3,7 @@ package gildedrose;
 public class LegendaryItem extends Item{
 
     public LegendaryItem(int sellIn, int quality) {
-        super(null, quality);
+        super(sellIn, quality);
     }
 
     @Override

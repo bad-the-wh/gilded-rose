@@ -2,9 +2,9 @@ package gildedrose;
 
 public abstract class Item {
 
-    private String itemName;
-    private int sellIn;
-    private int quality;
+    protected String itemName;
+    protected int sellIn;
+    protected int quality;
 
     public Item (Integer sellIn, int quality){
 
