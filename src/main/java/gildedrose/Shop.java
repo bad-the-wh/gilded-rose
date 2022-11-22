@@ -1,19 +1,21 @@
 package gildedrose;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class Shop {
 
-    public ArrayList<Item> items;
+    private ItemsRepository repository;
 
-    public Shop(ArrayList<Item> items) {
-        this.items = items;
+    public Shop(ItemsRepository repository) {
+        this.repository = repository;
     }
 
     public void updateQuality() {
-        for (Item item : this.items) {
+        List<Item> items = this.repository.getInventory();
+        for (Item item : items) {
             item.update();
-          }
+            }
+        this.repository.saveInventory(items);
         }
     };
 
