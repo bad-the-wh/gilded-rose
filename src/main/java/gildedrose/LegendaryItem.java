@@ -6,6 +6,7 @@ public class LegendaryItem extends Item{
         super(sellIn, quality);
     }
 
+
     @Override
     public void update() {
 

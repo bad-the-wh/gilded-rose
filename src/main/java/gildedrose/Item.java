@@ -13,6 +13,14 @@ public abstract class Item {
 
     };
 
+    public Item (String itemName, Integer sellIn, int quality){
+
+        this.itemName = itemName;
+        this.sellIn = sellIn;
+        this.quality = quality;
+
+    }
+
     public abstract void update();
 
     public String getItemName() {
