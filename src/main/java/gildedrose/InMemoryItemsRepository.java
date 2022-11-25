@@ -1,5 +1,6 @@
 package gildedrose;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,18 +27,19 @@ public class InMemoryItemsRepository implements ItemsRepository{
         items.add(new ConjuredItem(5, 8));
         items.add(new ConjuredItem(0, 8));
         items.add(new ConjuredItem(0, 3));
+
     }
 
     @Override
     public List<Item> getInventory() {
-       
+
         return items;
     }
 
     @Override
-    public void saveInventory(List<Item> items) {
+    public void saveInventory(List<Item> items) throws FileNotFoundException {
         this.items=items;
-        
+
     }
-    
+
 }
