@@ -57,7 +57,7 @@ public class FileItemsRepository implements ItemsRepository{
     }
 
     @Override
-    public void saveInventory(List<Item> items) throws FileNotFoundException {
+    public void saveInventory(List<Item> items) {
         try
         {
             file = new FileWriter("../../../../Demo.csv");
@@ -85,6 +85,12 @@ public class FileItemsRepository implements ItemsRepository{
             e.printStackTrace();
         }
 
+    }
+
+    @Override
+    public Item findItem(String type, int quality) {
+        // TODO Auto-generated method stub
+        return null;
     }
 
 }

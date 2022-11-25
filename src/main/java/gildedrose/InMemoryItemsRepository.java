@@ -2,6 +2,7 @@ package gildedrose;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class InMemoryItemsRepository implements ItemsRepository{
@@ -37,9 +38,22 @@ public class InMemoryItemsRepository implements ItemsRepository{
     }
 
     @Override
-    public void saveInventory(List<Item> items) throws FileNotFoundException {
+    public void saveInventory(List<Item> items) {
         this.items=items;
 
+    }
+
+    @Override
+    public Item findItem(String type, int quality) {
+        for(Item i: items) {
+            String test = i.toString();
+            System.out.println(test);
+            if (type.equals(test)){
+                return i ;
+            }
+        }
+        return null;
+        
     }
 
 }

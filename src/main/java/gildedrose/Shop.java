@@ -1,6 +1,5 @@
 package gildedrose;
 
-import java.io.FileNotFoundException;
 import java.util.List;
 
 public class Shop {
@@ -11,7 +10,7 @@ public class Shop {
         this.repository = repository;
     }
 
-    public void updateQuality() throws FileNotFoundException {
+    public void updateQuality() {
         List<Item> items = this.repository.getInventory();
         for (Item item : items) {
             item.update();

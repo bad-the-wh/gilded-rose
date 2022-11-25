@@ -1,12 +1,13 @@
 package gildedrose;
-import java.io.FileNotFoundException;
-import java.util.List;
 
+import java.util.List;
 
 public interface ItemsRepository {
 
-     List<Item> getInventory() throws FileNotFoundException;
+     List<Item> getInventory();
 
-     void saveInventory(List<Item> items) throws FileNotFoundException;
+     void saveInventory(List<Item> items);
+
+     Item findItem(String type, int quality);
 
 }

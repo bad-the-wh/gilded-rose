@@ -5,6 +5,19 @@ public abstract class Item {
     protected String itemName;
     protected int sellIn;
     protected int quality;
+    protected int baseValue=10;
+
+    public int getBaseValue() {
+        return baseValue;
+    }
+
+    public void setBaseValue(int baseValue) {
+        this.baseValue = baseValue;
+    }
+
+    public int getValue() {
+        return baseValue+quality*10;
+    }
 
     public Item (Integer sellIn, int quality){
 
