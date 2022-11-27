@@ -8,6 +8,8 @@ public interface ItemsRepository {
 
      void saveInventory(List<Item> items);
 
-     Item findItem(String type, int quality);
+     Item findItem(String type, int quality) throws ItemNotFoundException;
+
+     void deleteItem(Item item);
 
 }

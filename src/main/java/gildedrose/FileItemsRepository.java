@@ -93,4 +93,10 @@ public class FileItemsRepository implements ItemsRepository{
         return null;
     }
 
+    @Override
+    public void deleteItem(Item item) {
+        // TODO Auto-generated method stub
+        
+    }
+
 }

@@ -91,6 +91,25 @@ class GildedRoseTest {
 
     @Test
     void should_found_item_in_inventory(){
-        assertEquals(itemNeeded.getClass(),repository.findItem("GenericItem", 8).getClass());              
+        try {
+            assertEquals(itemNeeded.getClass(),repository.findItem("GenericItem", 7).getClass());
+        } catch (ItemNotFoundException e) {
+            e.printStackTrace();
+        }              
     }
+
+    @Test
+    void should_update_shop_solde_after_selling_item(){
+        try {
+            assertEquals(80,shop.sellItem("GenericItem",7));
+        } catch (ItemNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    void should_warning_in_case_of_item_not_found() throws ItemNotFoundException {
+        shop.sellItem("test", 0);
+    }             
+
 }

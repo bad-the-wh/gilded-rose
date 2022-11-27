@@ -1,8 +1,6 @@
 package gildedrose;
 
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class InMemoryItemsRepository implements ItemsRepository{
@@ -42,18 +40,31 @@ public class InMemoryItemsRepository implements ItemsRepository{
         this.items=items;
 
     }
-
+    
     @Override
-    public Item findItem(String type, int quality) {
+
+    public Item findItem(String type, int quality) throws ItemNotFoundException {
+        Item found = null;
+        
         for(Item i: items) {
-            String test = i.toString();
-            System.out.println(test);
-            if (type.equals(test)){
-                return i ;
+            String typeItem = i.getType();
+            if (type.equals(typeItem)){
+                int iquality = i.getQuality();
+                if (iquality==quality){
+                    found = i;
+                }
             }
         }
-        return null;
-        
+        if (found == null){
+            throw new ItemNotFoundException("objet non disponnible, la vente est anuulée");
+        }
+        return found;
+    }
+
+    @Override
+    public void deleteItem(Item item) {
+        int index = items.indexOf(item);
+        items.remove(index);
     }
 
 }

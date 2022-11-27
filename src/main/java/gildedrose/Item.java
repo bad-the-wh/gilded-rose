@@ -59,4 +59,10 @@ public abstract class Item {
     public void setSellIn(int sellIn) {
         this.sellIn = sellIn;
     }
+
+    public String getType(){
+        String classItem = this.getClass().toString();
+        String[] t = classItem.split("\\.");
+        return t[1];
+    }
 }
