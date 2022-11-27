@@ -4,8 +4,8 @@ import java.util.List;
 
 public class Shop {
 
-    private ItemsRepository repository;
-    public int solde;
+    ItemsRepository repository;
+    public int solde=0;   
 
 
     public int getSolde() {
@@ -31,7 +31,7 @@ public class Shop {
     public Integer sellItem(String type, int quality) throws ItemNotFoundException {
         try{
             Item item = repository.findItem(type, quality);
-            System.out.println("l'item trouvé est :"+item.getType());
+            System.out.println("l'item trouvé est :"+item.getType()+ " Qualité " + item.getQuality()+ " valeur "+ item.getValue());
             solde = solde + item.getValue();
             repository.deleteItem(item);
             

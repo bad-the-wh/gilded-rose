@@ -31,7 +31,6 @@ public class InMemoryItemsRepository implements ItemsRepository{
 
     @Override
     public List<Item> getInventory() {
-
         return items;
     }
 

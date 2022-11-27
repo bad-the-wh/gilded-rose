@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch Application",
+            "request": "launch",
+            "mainClass": "gildedrose.Application",
+            "projectName": "gildedrose"
+        },
+        {
+            "type": "java",
             "name": "Launch External Terminal",
             "request": "launch",
             "console": "externalTerminal",
