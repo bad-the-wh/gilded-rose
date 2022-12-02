@@ -3,7 +3,7 @@ package gildedrose;
 import java.util.Scanner;
 import java.util.List;
 
-public class Application {
+public class ConsoleUI {
     public static void main(String... args) throws ItemNotFoundException {
         Shop shop;
         ItemsRepository repository;
@@ -18,9 +18,13 @@ public class Application {
            }
        }
        
+    private static void clearScreen() {  
+        System.out.print("\033[H\033[2J");  
+        System.out.flush();  
+    }
     
     
-    private static void printSellMenu(Shop shop) throws ItemNotFoundException {
+    private static void sellItem(Shop shop) throws ItemNotFoundException {
         clearScreen();
         Scanner sc = new Scanner(System.in);
         System.out.println("*******************************Welcome to GILDEROSE shop*******************************");
@@ -41,7 +45,7 @@ public class Application {
 
 
 
-    private static void printShopUpdate(Shop shop) {
+    private static void updateInventory(Shop shop) {
         clearScreen();
         shop.updateQuality();
         System.out.println("*******************************Welcome to GILDEROSE shop*******************************");
@@ -54,7 +58,7 @@ public class Application {
 
 
 
-    static void printShopSolde(Shop shop) {
+    static void displayBalance(Shop shop) {
         clearScreen();
         System.out.println("*******************************Welcome to GILDEROSE shop*******************************");
         System.out.println("*                                                                                     *");
@@ -63,7 +67,17 @@ public class Application {
         System.out.println(" press enter ");
     }
 
+    private static void displayInventory(List<Item> items){
+        clearScreen();
 
+        System.out.println("*******************************Welcome to GILDEROSE shop*******************************");
+        System.out.println("* Article / Type / SELLIN / QUALITY / VALUE                                           *");
+        for(Item i: items) {
+            System.out.println("* "+ i.getItemName() +" / "+ i.getType() + " / "+i.getSellIn()+" / "+i.getQuality()+" / "+i.getValue());
+        }
+        System.out.println("***************************************************************************************");
+        System.out.println(" press enter ");               
+    } 
 
     private static void printMenu(Shop shop) throws ItemNotFoundException {
             clearScreen();
@@ -87,18 +101,18 @@ public class Application {
                     break;
                 case 1:
                     items=shop.repository.getInventory();
-                    printItem(items);
+                    displayInventory(items);
                     
                     break;
                 case 2:
-                    printShopSolde(shop);
+                    displayBalance(shop);
                     
                     break;
                 case 3:
-                    printShopUpdate(shop);
+                    updateInventory(shop);
                     break;
                 case 4:
-                    printSellMenu(shop);
+                    sellItem(shop);
                     
                     break;
                 default:
@@ -106,22 +120,6 @@ public class Application {
                     System.out.println("Mauvaix choix, recommencer");
             }
     }
-
-    private static void clearScreen() {  
-        System.out.print("\033[H\033[2J");  
-        System.out.flush();  
-     }
-
-    private static void printItem(List<Item> items){
-        clearScreen();
-
-        System.out.println("*******************************Welcome to GILDEROSE shop*******************************");
-        System.out.println("* Article / Type / SELLIN / QUALITY / VALUE                                           *");
-        for(Item i: items) {
-            System.out.println("* "+ i.getItemName() +" / "+ i.getType() + " / "+i.getSellIn()+" / "+i.getQuality()+" / "+i.getValue());
-        }
-        System.out.println("***************************************************************************************");
-        System.out.println(" press enter ");               
-    } 
+    
 }
 
