@@ -1,15 +1,23 @@
-package gildedrose;
+package gildedrose.Persistance;
 
+import gildedrose.CoreDomain.*;
+import lombok.*;
+
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
-import java.io.File;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
 import static java.lang.Integer.parseInt;
 
-public class FileItemsRepository implements ItemsRepository{
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@Getter
+@Setter
+public class FileItemsRepository implements ItemsRepository {
 
     FileWriter file = null;
     public List<Item> items;
@@ -36,19 +44,19 @@ public class FileItemsRepository implements ItemsRepository{
             int quality = parseInt(sc.next());
             Item i = null;
             if(itemName == "Sulfuras"){
-                items.add(new LegendaryItem(sellIn, quality));
+                items.add(new LegendaryItem());
             }
             else if(itemName == "Aged Brie"){
-                items.add(new AgingItem(sellIn, quality));
+                items.add(AgingItem.builder().sellIn(sellIn).quality(quality).build());
             }
             else if(itemName == "Backstage Passes"){
-                items.add(new EventItem(sellIn, quality));
+                items.add(EventItem.builder().sellIn(sellIn).quality(quality).build());
             }
             else if(itemName == "Conjured"){
-                items.add(new ConjuredItem(sellIn, quality));
+                items.add(ConjuredItem.builder().sellIn(sellIn).quality(quality).build());
             }
             else{
-                items.add(new GenericItem(sellIn, quality));
+                items.add(GenericItem.builder().sellIn(sellIn).quality(quality).build());
             }
         }
         sc.close();
@@ -84,6 +92,47 @@ public class FileItemsRepository implements ItemsRepository{
         {
             e.printStackTrace();
         }
+
+    }
+
+    @Override
+    public Item findItem(String type, int quality) throws FileNotFoundException {
+
+        List<Item> items = getInventory();
+        Item result = null;
+
+        for(Item i : items){
+
+            if((i.getItemName() == type) && (i.getQuality() == quality)){
+
+                result = i;
+
+            }
+
+        }
+
+        return result;
+    }
+
+    @Override
+    public void updateInventory(Item item) throws FileNotFoundException {
+
+        List<Item> items = getInventory();
+        int i = 0;
+
+        for (Item item1 : items){
+
+            if(item1 == item){
+
+                items.remove(i);
+
+            }
+
+            else i++;
+
+        }
+
+        saveInventory(items);
 
     }
 
