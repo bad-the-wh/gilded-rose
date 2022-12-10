@@ -1,7 +1,7 @@
-package gildedrose.Persistance;
+package gildedrose.persistance;
 
-import gildedrose.CoreDomain.Item;
-import gildedrose.CoreDomain.ItemsRepository;
+import gildedrose.core.domain.item.Item;
+import gildedrose.core.domain.ItemsGateway;
 import lombok.*;
 
 import java.io.FileNotFoundException;
@@ -13,7 +13,7 @@ import java.util.List;
 @Builder
 @Getter
 @Setter
-public class InMemoryItemsRepository implements ItemsRepository {
+public class InMemoryItemsGateway implements ItemsGateway {
     private List<Item> items;
 
     @Override

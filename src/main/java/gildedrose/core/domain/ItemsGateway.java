@@ -1,10 +1,12 @@
-package gildedrose.CoreDomain;
+package gildedrose.core.domain;
+
+import gildedrose.core.domain.item.Item;
 
 import java.io.FileNotFoundException;
 import java.util.List;
 
 
-public interface ItemsRepository {
+public interface ItemsGateway {
 
      List<Item> getInventory() throws FileNotFoundException;
 

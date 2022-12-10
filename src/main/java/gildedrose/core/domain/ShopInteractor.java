@@ -1,5 +1,6 @@
-package gildedrose.CoreDomain;
+package gildedrose.core.domain;
 
+import gildedrose.core.domain.item.Item;
 import lombok.*;
 
 import java.io.FileNotFoundException;
@@ -10,9 +11,9 @@ import java.util.List;
 @Builder
 @Getter
 @Setter
-public class Shop {
+public class ShopInteractor {
 
-    private ItemsRepository repository;
+    private ItemsGateway repository;
 
     public void updateQuality() throws FileNotFoundException {
         List<Item> items = repository.getInventory();
@@ -22,16 +23,5 @@ public class Shop {
         this.repository.saveInventory(items);
     }
 
-    public void updateInventory(Item item) throws FileNotFoundException {
-
-        repository.updateInventory(item);
-    }
-
-    public void sellItem(String type, int quality) throws FileNotFoundException {
-
-        Item item = repository.findItem(type,quality);
-        updateInventory(item);
-
-    }
 
 }

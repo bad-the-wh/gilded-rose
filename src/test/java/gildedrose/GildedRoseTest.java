@@ -1,9 +1,8 @@
 package gildedrose;
 
-import gildedrose.CoreDomain.*;
+import gildedrose.core.domain.item.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -14,13 +13,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class GildedRoseTest {
 
-    @Mock
-    Shop shop;
 
     List<Item> items;
-
-    @Mock
-    ItemsRepository repository;
 
     @BeforeEach
     void setup() throws FileNotFoundException {

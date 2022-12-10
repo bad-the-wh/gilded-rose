@@ -1,4 +1,4 @@
-package gildedrose.CoreDomain;
+package gildedrose.core.domain.item;
 
 
 import lombok.*;

@@ -1,5 +1,6 @@
-package gildedrose.CoreDomain;
+package gildedrose.core.domain.item;
 
+import gildedrose.core.domain.item.Item;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;

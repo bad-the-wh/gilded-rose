@@ -1,6 +1,7 @@
-package gildedrose.Persistance;
+package gildedrose.persistance;
 
-import gildedrose.CoreDomain.*;
+import gildedrose.core.domain.ItemsGateway;
+import gildedrose.core.domain.item.*;
 import lombok.*;
 
 import java.io.File;
@@ -17,7 +18,7 @@ import static java.lang.Integer.parseInt;
 @Builder
 @Getter
 @Setter
-public class FileItemsRepository implements ItemsRepository {
+public class FileItemsGateway implements ItemsGateway {
 
     FileWriter file = null;
     public List<Item> items;
