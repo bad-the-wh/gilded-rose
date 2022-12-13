@@ -8,7 +8,7 @@ import lombok.Setter;
 @Setter
 public class ConsoleController {
 
-    private ShopInputBoundary shopInputBoundary;
+    private final ShopInputBoundary shopInputBoundary = new ShopInputBoundary();
 
 
 
