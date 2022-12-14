@@ -70,7 +70,25 @@ public class DbItemsGateway implements ItemsGateway{
         Connection conn = null;
         try {
             conn = DriverManager.getConnection("jdbc:mysql://epsi-tp001.cdtv1lsfjbfz.eu-west-3.rds.amazonaws.com/GILDEROSE?useSSL=false&useLegacyDatetimeCode=false&serverTimezone=Europe/Paris","admin","EPSITP01");
-            
+            Statement _deleteTableDtataStmt = null;
+            String _deleteTableData ="TRUNCATE TABLE ITEMS";
+            _deleteTableDtataStmt.executeUpdate(_deleteTableData);
+            Iterator it = items.iterator();
+            PreparedStatement preparedStatement=conn.prepareStatement("INSERT INTO ITEMS(TYPE,SELLIN,QUALITY,BASEPRICE) VALUES (?,?;?,?)");
+            while(it.hasNext())
+            { 
+                Item i = (Item)it.next();
+                String type = i.getItemName();
+                int sellIn = i.getSellIn();
+                int quality = i.getQuality();
+                int basePrice = i.getBasePrice(); 
+                preparedStatement.setString(1, type);
+                preparedStatement.setInt(2, sellIn);
+                preparedStatement.setInt(3, quality);
+                preparedStatement.setInt(4,basePrice);
+                ResultSet line = preparedStatement.executeQuery();
+            }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -99,19 +117,19 @@ public class DbItemsGateway implements ItemsGateway{
                 int sellin = line.getInt("SELLIN");
                 int basePrice = line.getInt("BASEPRICE");
                 if(type == "LegendaryItem"){
-                    items.add(new LegendaryItem(sellin,quality,basePrice));
+                    item=new LegendaryItem(sellin,quality,basePrice);
                 }
                 else if(type == "AgingItem"){
-                    items.add(new AgingItem(sellin,quality,basePrice));
+                    item=new AgingItem(sellin,quality,basePrice);
                 }
                 else if(type == "EventItem"){
-                    items.add(new EventItem(sellin,quality,basePrice));
+                    item=new EventItem(sellin,quality,basePrice);
                 }
                 else if(type == "ConjuredItem"){
-                    items.add(new ConjuredItem(sellin,quality,basePrice));
+                    item=new ConjuredItem(sellin,quality,basePrice);
                 }
                 else{
-                    items.add(new GenericItem(sellin,quality,basePrice));
+                    item=new GenericItem(sellin,quality,basePrice);
                 }
             }else{
                 // item non trouvé dans la base 
@@ -128,12 +146,37 @@ public class DbItemsGateway implements ItemsGateway{
                 e.printStackTrace();
             }
         }
+        return item;
     }
-    }
+    
 
     @Override
     public void updateInventory(Item item) throws FileNotFoundException {
-        // TODO Auto-generated method stub
+        Connection conn = null;
+        try {
+            conn = DriverManager.getConnection("jdbc:mysql://epsi-tp001.cdtv1lsfjbfz.eu-west-3.rds.amazonaws.com/GILDEROSE?useSSL=false&useLegacyDatetimeCode=false&serverTimezone=Europe/Paris","admin","EPSITP01");
+            PreparedStatement preparedStatement=conn.prepareStatement("DELETE FROM ITEMS WHERE TYPE= ? and SELLIN=? and QUALITY= ? and BASEPRICE=?");
+            String type = item.getItemName();
+            int sellIn = item.getSellIn();
+            int quality = item.getQuality();
+            int basePrice = item.getBasePrice(); 
+            preparedStatement.setString(1, type);
+            preparedStatement.setInt(2, sellIn);
+            preparedStatement.setInt(3, quality);
+            preparedStatement.setInt(4,basePrice);
+            ResultSet line = preparedStatement.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        finally {
+            try {
+                if (conn!=null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
         
     }
 
