@@ -1,6 +1,9 @@
 package gildedrose;
 
+import gildedrose.core.domain.ShopInteractor;
 import gildedrose.core.domain.item.*;
+import gildedrose.persistance.DbItemsGateway;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -12,14 +15,19 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class GildedRoseTest {
-
+    DbItemsGateway repository ;
+    ShopInteractor shop;
 
     List<Item> items;
 
     @BeforeEach
     void setup() throws FileNotFoundException {
 
-       items = new ArrayList<Item>();
+        repository = new DbItemsGateway();
+     
+        shop = new ShopInteractor(repository);
+        shop.updateQuality();
+         
 
    }
 
