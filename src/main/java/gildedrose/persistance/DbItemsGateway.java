@@ -9,11 +9,22 @@ import java.util.Scanner;
 
 import gildedrose.core.domain.ItemsGateway;
 import gildedrose.core.domain.item.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.sql.*;
 
 
 import static java.lang.Integer.parseInt;
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@Getter
+@Setter
 
 public class DbItemsGateway implements ItemsGateway{
 
@@ -30,23 +41,23 @@ public class DbItemsGateway implements ItemsGateway{
             
             while(line.next()){
                 String type = line.getString("TYPE");
-                int sellin = line.getInt("SELLIN");
+                int sellIn = line.getInt("SELLIN");
                 int quality = line.getInt("QUALITY");
                 int basePrice = line.getInt("BASEPRICE");
                 if(type == "LegendaryItem"){
-                    items.add(new LegendaryItem(sellin,quality,basePrice));
+                    items.add(LegendaryItem.builder().sellIn(sellIn).quality(quality).basePrice(basePrice).build());
                 }
                 else if(type == "AgingItem"){
-                    items.add(new AgingItem(sellin,quality,basePrice));
+                    items.add(AgingItem.builder().sellIn(sellIn).quality(quality).basePrice(basePrice).build());
                 }
                 else if(type == "EventItem"){
-                    items.add(new EventItem(sellin,quality,basePrice));
+                    items.add(EventItem.builder().sellIn(sellIn).quality(quality).basePrice(basePrice).build());
                 }
                 else if(type == "ConjuredItem"){
-                    items.add(new ConjuredItem(sellin,quality,basePrice));
+                    items.add(ConjuredItem.builder().sellIn(sellIn).quality(quality).basePrice(basePrice).build());
                 }
                 else{
-                    items.add(new GenericItem(sellin,quality,basePrice));
+                    items.add(GenericItem.builder().sellIn(sellIn).quality(quality).basePrice(basePrice).build());
                 }
             }
         } catch (SQLException e) {
@@ -114,25 +125,25 @@ public class DbItemsGateway implements ItemsGateway{
             preparedStatement.setInt(2, quality);
             ResultSet line = preparedStatement.executeQuery();
             if (line != null ){
-                int sellin = line.getInt("SELLIN");
+                int sellIn = line.getInt("SELLIN");
                 int basePrice = line.getInt("BASEPRICE");
                 if(type == "LegendaryItem"){
-                    item=new LegendaryItem(sellin,quality,basePrice);
+                    item=LegendaryItem.builder().sellIn(sellIn).quality(quality).basePrice(basePrice).build();
                 }
                 else if(type == "AgingItem"){
-                    item=new AgingItem(sellin,quality,basePrice);
+                    item=AgingItem.builder().sellIn(sellIn).quality(quality).basePrice(basePrice).build();
                 }
                 else if(type == "EventItem"){
-                    item=new EventItem(sellin,quality,basePrice);
+                    item=EventItem.builder().sellIn(sellIn).quality(quality).basePrice(basePrice).build();
                 }
                 else if(type == "ConjuredItem"){
-                    item=new ConjuredItem(sellin,quality,basePrice);
+                    item=ConjuredItem.builder().sellIn(sellIn).quality(quality).basePrice(basePrice).build();
                 }
                 else{
-                    item=new GenericItem(sellin,quality,basePrice);
+                    item=GenericItem.builder().sellIn(sellIn).quality(quality).basePrice(basePrice).build();
                 }
             }else{
-                // item non trouvé dans la base 
+                System.out.println("Objet non trouvé"); 
             }
         } catch (SQLException e) {
             e.printStackTrace();

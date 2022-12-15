@@ -23,4 +23,7 @@ public abstract class Item {
     public String getItemName() {
         return itemName;
     }
+
+    public void setSellin(int int1) {
+    }
 }
