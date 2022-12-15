@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 class GildedRoseTest {
     DbItemsGateway repository ;
     ShopInteractor shop;
-
+    Item itemNeeded = GenericItem.builder().sellIn(0).quality(8).build();
     List<Item> items;
 
     @BeforeEach
@@ -31,139 +31,85 @@ class GildedRoseTest {
 
    }
 
-    @Test
-    void should_decrease_quality_genericItem() {
+   @Test
+   void should_update_item()  {
+       assertEquals(4, repository.getInventory().get(0).getSellIn());
+       assertEquals(7, repository.getInventory().get(0).getQuality());
+   }
 
-        items.add(GenericItem.builder().sellIn(5).quality(8).basePrice(100).build());
+   @Test
+   void should_decrease_quality_twice_as_fast_after_sellin()  {
+       assertEquals(6, repository.getInventory().get(1).getQuality());
+   }
 
-        items.get(0).update();
+   @Test
+   void should_not_decrease_quality_under_zero()  {
+       assertEquals(0, repository.getInventory().get(2).getQuality());
+   }
 
-        assertNotNull(items.get(0));
-        assertEquals(4, items.get(0).getSellIn());
-        assertEquals(7, items.get(0).getQuality());
-    }
+   @Test
+   void should_increase_agedbrie_quality()  {
+       assertEquals(9, repository.getInventory().get(3).getQuality());
+   }
 
+   @Test
+   void should_not_increase_quality_over_fity()  {
+       assertEquals(50, repository.getInventory().get(4).getQuality());
+   }
 
-    @Test
-    void should_decrease_quality_twice_when_sellIn_under_zero_genericItem() throws FileNotFoundException {
-        items.add(GenericItem.builder().sellIn(0).quality(8).basePrice(100).build());
+   @Test
+   void should_not_changed_sulfuras_quality()  {
+       assertEquals(80, repository.getInventory().get(5).getQuality());
+   }
 
-        items.get(0).update();
+   @Test
+   void should_increase_event_item_quality()  {
+       assertEquals(9, repository.getInventory().get(6).getQuality());
+       assertEquals(50, repository.getInventory().get(7).getQuality());
+   }
 
-        assertNotNull(items.get(0));
-        assertEquals(0, items.get(0).getSellIn());
-        assertEquals(6, items.get(0).getQuality());
-    }
+   @Test
+   void should_increase_event_item_quality_ten_days_before()  {
+       assertEquals(35, repository.getInventory().get(8).getQuality());
+   }
 
-    @Test
-    void should_not_decrease_quality_under_zero_genericItem() throws FileNotFoundException {
-        items.add(GenericItem.builder().sellIn(5).quality(0).basePrice(100).build());
+   @Test
+   void should_increase_event_item_quality_five_days_before()  {
+       assertEquals(24, repository.getInventory().get(9).getQuality());
+   }
 
-        items.get(0).update();
+   @Test
+   void should_increase_event_item_quality_after_event()  {
+       assertEquals(0, repository.getInventory().get(10).getQuality());
+   }
 
-        assertEquals(4, items.get(0).getSellIn());
-        assertEquals(0, items.get(0).getQuality());
-    }
+   @Test
+   void should_update_conjured_quality_twice_as_fast_as_generic()  {
+       assertEquals(6, repository.getInventory().get(11).getQuality());
+       assertEquals(4, repository.getInventory().get(12).getQuality());
+       assertEquals(0, repository.getInventory().get(13).getQuality());
+   }
 
-    @Test
-    void should_increase_agingItem_quality() throws FileNotFoundException {
-        items.add(AgingItem.builder().sellIn(5).quality(8).basePrice(100).build());
+   @Test  
+   void should_get_item_value(){
+       assertEquals(510,repository.getInventory().get(4).getValue() );
+   }
 
-        items.get(0).update();
+   @Test
+   void should_found_item_in_inventory(){
+        assertEquals(itemNeeded.getClass(),repository.findItem("GenericItem", 7).getClass());
+       
+   }
 
-        assertEquals(4, items.get(0).getSellIn());
-        assertEquals(9, items.get(0).getQuality());
-    }
+   //@Test
+   //void should_update_shop_solde_after_selling_item(){
+   //     assertEquals(80,shop.sellItem("GenericItem",7));
+      
+   //}
 
-    @Test
-    void should_not_increase_quality_over_fity() throws FileNotFoundException {
-        items.add(AgingItem.builder().sellIn(5).quality(50).basePrice(100).build());
-
-        items.get(0).update();
-
-        assertEquals(4, items.get(0).getSellIn());
-        assertEquals(50, items.get(0).getQuality());
-    }
-
-    @Test
-    void should_not_upgrade_quality_when_sellin_equals_zero() throws FileNotFoundException {
-        items.add(AgingItem.builder().sellIn(0).quality(10).basePrice(100).build());
-
-        items.get(0).update();
-
-        assertEquals(0, items.get(0).getSellIn());
-        assertEquals(10, items.get(0).getQuality());
-    }
-
-
-    @Test
-    void should_not_change_legendary_item_quality() throws FileNotFoundException {
-        items.add(new LegendaryItem());
-
-        items.get(0).update();
-
-        assertEquals(0, items.get(0).getSellIn());
-        assertEquals(80, items.get(0).getQuality());
-    }
-
-    @Test
-    void should_increase_event_item_quality() throws FileNotFoundException {
-        items.add(EventItem.builder().sellIn(11).quality(25).basePrice(100).build());
-
-        items.get(0).update();
-
-        assertEquals(10, items.get(0).getSellIn());
-        assertEquals(26, items.get(0).getQuality());
-    }
-
-    @Test
-    void should_increase_event_item_quality_ten_days_before() throws FileNotFoundException {
-        items.add(EventItem.builder().sellIn(8).quality(20).basePrice(100).build());
-
-        items.get(0).update();
-
-        assertEquals(7, items.get(0).getSellIn());
-        assertEquals(22, items.get(0).getQuality());
-    }
-
-    @Test
-    void should_increase_event_item_quality_five_days_before() throws FileNotFoundException {
-        items.add(EventItem.builder().sellIn(4).quality(35).basePrice(100).build());
-
-        items.get(0).update();
-
-        assertEquals(3, items.get(0).getSellIn());
-        assertEquals(38, items.get(0).getQuality());
-    }
-
-    @Test
-    void should_decrease_event_item_quality_after_event() throws FileNotFoundException {
-        items.add(EventItem.builder().sellIn(0).quality(45).basePrice(100).build());
-
-        items.get(0).update();
-
-        assertEquals(0, items.get(0).getSellIn());
-        assertEquals(0, items.get(0).getQuality());
-    }
-
-    @Test
-    void should_update_conjured_quality() throws FileNotFoundException {
-        items.add(ConjuredItem.builder().sellIn(10).quality(15).basePrice(100).build());
-
-        items.get(0).update();
-
-        assertEquals(9, items.get(0).getSellIn());
-        assertEquals(13, items.get(0).getQuality());
-    }
-
-    @Test
-    void should_update_conjured_quality_twice_as_fast_when_selln_reaches_zero() throws FileNotFoundException {
-        items.add(ConjuredItem.builder().sellIn(0).quality(15).basePrice(100).build());
-
-        items.get(0).update();
-
-        assertEquals(0, items.get(0).getSellIn());
-        assertEquals(11, items.get(0).getQuality());
-    }
+   //@Test
+   //void should_warning_in_case_of_item_not_found() throws ItemNotFoundException {
+   //    shop.sellItem("test", 0);
+   //}             
 
 }
