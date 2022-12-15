@@ -29,11 +29,10 @@ import static java.lang.Integer.parseInt;
 
 public class DbItemsGateway implements ItemsGateway{
 
-    public List<Item> items;
+    private List<Item> items = new ArrayList<>();
 
     @Override
     public List<Item> getInventory(){
-        List<Item> items1 = new ArrayList<>();
         Connection conn = null;
         try {
             conn = DriverManager.getConnection("jdbc:mysql://epsi-tp001.cdtv1lsfjbfz.eu-west-3.rds.amazonaws.com/GILDEROSE?useSSL=false&useLegacyDatetimeCode=false&serverTimezone=Europe/Paris","admin","EPSITP01");
@@ -46,20 +45,20 @@ public class DbItemsGateway implements ItemsGateway{
                 int quality = line.getInt("QUALITY");
                 int basePrice = line.getInt("BASEPRICE");
                 if(type.equals("LegendaryItem")){
-                    items1.add(LegendaryItem.builder().sellIn(sellIn).quality(quality).basePrice(basePrice).build());
+                    items.add(LegendaryItem.builder().sellIn(sellIn).quality(quality).basePrice(basePrice).build());
                 }
                 else if(type.equals("AgingItem")){
-                    items1.add(AgingItem.builder().sellIn(sellIn).quality(quality).basePrice(basePrice).build());
+                    items.add(AgingItem.builder().sellIn(sellIn).quality(quality).basePrice(basePrice).build());
                 }
                 else if(type.equals("EventItem")){
-                    items1.add(EventItem.builder().sellIn(sellIn).quality(quality).basePrice(basePrice).build());
+                    items.add(EventItem.builder().sellIn(sellIn).quality(quality).basePrice(basePrice).build());
                 }
                 else if(type.equals("ConjuredItem")){
-                    items1.add(ConjuredItem.builder().sellIn(sellIn).quality(quality).basePrice(basePrice).build());
+                    items.add(ConjuredItem.builder().sellIn(sellIn).quality(quality).basePrice(basePrice).build());
                 }
                 else{
                     System.out.println(type);
-                    items1.add(GenericItem.builder().sellIn(sellIn).quality(quality).basePrice(basePrice).build());
+                    items.add(GenericItem.builder().sellIn(sellIn).quality(quality).basePrice(basePrice).build());
                     System.out.println("test");
                 }
             }
@@ -75,7 +74,7 @@ public class DbItemsGateway implements ItemsGateway{
                 e.printStackTrace();
             }
         }
-        return items1;
+        return items;
     }
 
     @Override
