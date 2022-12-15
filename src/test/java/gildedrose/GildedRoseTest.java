@@ -26,9 +26,8 @@ class GildedRoseTest {
         repository = new DbItemsGateway();
      
         shop = new ShopInteractor(repository);
+        shop.getRepository().getInventory();
         shop.updateQuality();
-         
-
    }
 
    @Test

@@ -28,11 +28,11 @@ import static java.lang.Integer.parseInt;
 
 public class DbItemsGateway implements ItemsGateway{
 
-    FileWriter file = null;
     public List<Item> items;
     
     @Override
     public List<Item> getInventory(){
+
         Connection conn = null;
         try {
             conn = DriverManager.getConnection("jdbc:mysql://epsi-tp001.cdtv1lsfjbfz.eu-west-3.rds.amazonaws.com/GILDEROSE?useSSL=false&useLegacyDatetimeCode=false&serverTimezone=Europe/Paris","admin","EPSITP01");
@@ -44,20 +44,22 @@ public class DbItemsGateway implements ItemsGateway{
                 int sellIn = line.getInt("SELLIN");
                 int quality = line.getInt("QUALITY");
                 int basePrice = line.getInt("BASEPRICE");
-                if(type == "LegendaryItem"){
+                if(type.equals("LegendaryItem")){
                     items.add(LegendaryItem.builder().sellIn(sellIn).quality(quality).basePrice(basePrice).build());
                 }
-                else if(type == "AgingItem"){
+                else if(type.equals("AgingItem")){
                     items.add(AgingItem.builder().sellIn(sellIn).quality(quality).basePrice(basePrice).build());
                 }
-                else if(type == "EventItem"){
+                else if(type.equals("EventItem")){
                     items.add(EventItem.builder().sellIn(sellIn).quality(quality).basePrice(basePrice).build());
                 }
-                else if(type == "ConjuredItem"){
+                else if(type.equals("ConjuredItem")){
                     items.add(ConjuredItem.builder().sellIn(sellIn).quality(quality).basePrice(basePrice).build());
                 }
-                else{
+                else{System.out.println("test");
+                    System.out.println(type);
                     items.add(GenericItem.builder().sellIn(sellIn).quality(quality).basePrice(basePrice).build());
+                    System.out.println("test");
                 }
             }
         } catch (SQLException e) {
