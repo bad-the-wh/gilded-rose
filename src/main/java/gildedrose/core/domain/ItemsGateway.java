@@ -8,12 +8,12 @@ import java.util.List;
 
 public interface ItemsGateway {
 
-     List<Item> getInventory() throws FileNotFoundException;
+     List<Item> getInventory() ;
 
-     void saveInventory(List<Item> items) throws FileNotFoundException;
+     void saveInventory(List<Item> items) ;
 
-     Item findItem(String type,int quality) throws FileNotFoundException;
+     Item findItem(String type,int quality) ;
 
-     void updateInventory(Item item) throws FileNotFoundException;
+     void updateInventory(Item item) ;
 
 }

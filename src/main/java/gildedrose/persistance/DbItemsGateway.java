@@ -38,28 +38,29 @@ public class DbItemsGateway implements ItemsGateway{
             conn = DriverManager.getConnection("jdbc:mysql://epsi-tp001.cdtv1lsfjbfz.eu-west-3.rds.amazonaws.com/GILDEROSE?useSSL=false&useLegacyDatetimeCode=false&serverTimezone=Europe/Paris","admin","EPSITP01");
             PreparedStatement preparedStatement=conn.prepareStatement("SELECT * FROM  ITEMS");
             ResultSet line = preparedStatement.executeQuery();
+            System.out.println("getinventory");
+            int count =0 ; 
 
             while(line.next()){
+                count += 1;
                 String type = line.getString("TYPE");
                 int sellIn = line.getInt("SELLIN");
                 int quality = line.getInt("QUALITY");
                 int basePrice = line.getInt("BASEPRICE");
                 if(type.equals("LegendaryItem")){
-                    items.add(LegendaryItem.builder().sellIn(sellIn).quality(quality).basePrice(basePrice).build());
+                    items.add(LegendaryItem.builder().itemName(type).sellIn(sellIn).quality(quality).basePrice(basePrice).build());
                 }
                 else if(type.equals("AgingItem")){
-                    items.add(AgingItem.builder().sellIn(sellIn).quality(quality).basePrice(basePrice).build());
+                    items.add(AgingItem.builder().itemName(type).sellIn(sellIn).quality(quality).basePrice(basePrice).build());
                 }
                 else if(type.equals("EventItem")){
-                    items.add(EventItem.builder().sellIn(sellIn).quality(quality).basePrice(basePrice).build());
+                    items.add(EventItem.builder().itemName(type).sellIn(sellIn).quality(quality).basePrice(basePrice).build());
                 }
                 else if(type.equals("ConjuredItem")){
-                    items.add(ConjuredItem.builder().sellIn(sellIn).quality(quality).basePrice(basePrice).build());
+                    items.add(ConjuredItem.builder().itemName(type).sellIn(sellIn).quality(quality).basePrice(basePrice).build());
                 }
                 else{
-                    System.out.println(type);
-                    items.add(GenericItem.builder().sellIn(sellIn).quality(quality).basePrice(basePrice).build());
-                    System.out.println("test");
+                    items.add(GenericItem.builder().itemName(type).sellIn(sellIn).quality(quality).basePrice(basePrice).build());
                 }
             }
         } catch (SQLException e) {
@@ -79,27 +80,35 @@ public class DbItemsGateway implements ItemsGateway{
 
     @Override
     public void saveInventory(List<Item> items) {
-
+        
         Connection conn = null;
         try {
             conn = DriverManager.getConnection("jdbc:mysql://epsi-tp001.cdtv1lsfjbfz.eu-west-3.rds.amazonaws.com/GILDEROSE?useSSL=false&useLegacyDatetimeCode=false&serverTimezone=Europe/Paris","admin","EPSITP01");
             Statement _deleteTableDtataStmt = null;
+            _deleteTableDtataStmt = conn.createStatement();
+            System.out.println("truncate");
             String _deleteTableData ="TRUNCATE TABLE ITEMS";
             _deleteTableDtataStmt.executeUpdate(_deleteTableData);
             Iterator it = items.iterator();
-            PreparedStatement preparedStatement=conn.prepareStatement("INSERT INTO ITEMS(TYPE,SELLIN,QUALITY,BASEPRICE) VALUES (?,?;?,?)");
+            PreparedStatement preparedStatement=conn.prepareStatement("INSERT INTO ITEMS(TYPE,SELLIN,QUALITY,BASEPRICE) VALUES (?,?,?,?)");
+            int count = 0 ;
             while(it.hasNext())
-            {
+            {   
+                count +=1 ; 
+                System.out.println(count);
                 Item i = (Item)it.next();
                 String type = i.getItemName();
+                System.out.println(type);
                 int sellIn = i.getSellIn();
+                
                 int quality = i.getQuality();
+                
                 int basePrice = i.getBasePrice();
                 preparedStatement.setString(1, type);
                 preparedStatement.setInt(2, sellIn);
                 preparedStatement.setInt(3, quality);
                 preparedStatement.setInt(4,basePrice);
-                ResultSet line = preparedStatement.executeQuery();
+                preparedStatement.executeUpdate();
             }
 
         } catch (SQLException e) {
@@ -164,7 +173,7 @@ public class DbItemsGateway implements ItemsGateway{
 
 
     @Override
-    public void updateInventory(Item item) throws FileNotFoundException {
+    public void updateInventory(Item item) {
         Connection conn = null;
         try {
             conn = DriverManager.getConnection("jdbc:mysql://epsi-tp001.cdtv1lsfjbfz.eu-west-3.rds.amazonaws.com/GILDEROSE?useSSL=false&useLegacyDatetimeCode=false&serverTimezone=Europe/Paris","admin","EPSITP01");

@@ -7,6 +7,7 @@ import lombok.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
@@ -30,37 +31,49 @@ public class FileItemsGateway implements ItemsGateway {
 
     @Override
     public List<Item> getInventory(){
-        List<Item> items = null;
+        List<Item> items = new ArrayList<>();
         Scanner sc = null;
         try {
-            sc = new Scanner(new File("../../../../Demo.csv"));
+            sc = new Scanner(new File("Demo.txt"));
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
         sc.useDelimiter(DELIMITER);   //sets the delimiter pattern
+        int count = 0;
         while(sc.hasNext())
         {
+            System.out.println(count);
             String itemName = sc.next();
+            System.out.println(itemName);
             int sellIn = parseInt(sc.next());
+            System.out.println(sellIn);
             int quality = parseInt(sc.next());
+            System.out.println(quality);
+            int basePrice = parseInt(sc.next());
+            System.out.println(basePrice);
             Item i = null;
-            if(itemName == "Sulfuras"){
-                items.add(new LegendaryItem());
+            count += 1;
+            System.out.println(count);
+            if(itemName.equals("LegendaryItem")){
+                items.add(LegendaryItem.builder().itemName(itemName).sellIn(sellIn).quality(quality).basePrice(basePrice).build());
             }
-            else if(itemName == "Aged Brie"){
-                items.add(AgingItem.builder().sellIn(sellIn).quality(quality).build());
+            else if(itemName.equals("AgingItem")){
+                items.add(AgingItem.builder().itemName(itemName).sellIn(sellIn).quality(quality).basePrice(basePrice).build());
             }
-            else if(itemName == "Backstage Passes"){
-                items.add(EventItem.builder().sellIn(sellIn).quality(quality).build());
+            else if(itemName.equals("EventItem")){
+                items.add(EventItem.builder().itemName(itemName).sellIn(sellIn).quality(quality).basePrice(basePrice).build());
             }
-            else if(itemName == "Conjured"){
-                items.add(ConjuredItem.builder().sellIn(sellIn).quality(quality).build());
+            else if(itemName.equals("ConjuredItem")){
+                items.add(ConjuredItem.builder().itemName(itemName).sellIn(sellIn).quality(quality).basePrice(basePrice).build());
             }
-            else{
-                items.add(GenericItem.builder().sellIn(sellIn).quality(quality).build());
+            else{System.out.println(count);
+                items.add(GenericItem.builder().itemName(itemName).sellIn(sellIn).quality(quality).basePrice(basePrice).build());
+                System.out.println(count);
             }
+            System.out.println(count);
         }
         sc.close();
+        System.out.println(count);
         return items;
 
     }

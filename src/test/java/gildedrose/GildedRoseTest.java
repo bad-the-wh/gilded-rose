@@ -3,7 +3,9 @@ package gildedrose;
 import gildedrose.core.domain.ShopInteractor;
 import gildedrose.core.domain.item.*;
 import gildedrose.persistance.DbItemsGateway;
+import gildedrose.persistance.FileItemsGateway;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -16,24 +18,27 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class GildedRoseTest {
     DbItemsGateway repository ;
+    FileItemsGateway reference;
     ShopInteractor shop;
     Item itemNeeded = GenericItem.builder().sellIn(0).quality(8).build();
     List<Item> items;
 
     @BeforeEach
     void setup() throws FileNotFoundException {
-
-        repository = new DbItemsGateway();
-     
-        shop = new ShopInteractor(repository);
-        shop.getRepository().getInventory();
-        shop.updateQuality();
-   }
+    reference = new FileItemsGateway();
+    repository = new DbItemsGateway();
+    repository.saveInventory(reference.getInventory());     
+    shop = new ShopInteractor(repository);
+    shop.updateQuality();
+    }
+   
+   
 
    @Test
-   void should_update_item()  {
-       assertEquals(4, repository.getInventory().get(0).getSellIn());
-       assertEquals(7, repository.getInventory().get(0).getQuality());
+   void should_update_item() {
+
+       assertEquals(4, shop.getRepository().getInventory().get(0).getSellIn());
+       assertEquals(7, shop.getRepository().getInventory().get(0).getQuality());
    }
 
    @Test

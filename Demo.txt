@@ -1,0 +1,1 @@
+GenericItem,5,8,100,GenericItem,0,8,100,GenericItem,0,1,100,AgingItem,5,8,100,AgingItem,5,50,100,LegendaryItem,6,80,100,EventItem,12,8,100,EventItem,11,50,100,EventItem,9,33,100,EventItem,4,21,100,EventItem,0,21,100,ConjuredItem,5,8,100,ConjuredItem,0,8,100,ConjuredItem,0,3,100

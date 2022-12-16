@@ -11,7 +11,7 @@ import lombok.experimental.SuperBuilder;
 @Getter
 public abstract class Item {
 
-    static String itemName;
+    String itemName;
     int sellIn;
     int quality;
     int basePrice;
