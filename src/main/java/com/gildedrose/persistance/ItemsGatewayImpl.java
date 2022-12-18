@@ -112,6 +112,15 @@ public class ItemsGatewayImpl implements ItemsGateway{
         }
     }
 
+    @Override
+    public void deleteItemByBasePrice(String id) {
+
+        em.createNativeQuery("DELETE FROM ITEMS WHERE ID=?1")
+                .setParameter(1, id)
+                .executeUpdate();
+
+    }
+
 
     @Override
     public void updateInventory(Item item) {

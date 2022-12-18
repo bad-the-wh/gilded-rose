@@ -12,7 +12,7 @@ import java.util.List;
 @Getter
 @Setter
 @Service
-public class ShopInteractor {
+public abstract class ShopInteractor {
 
     private ItemsGateway repository;
 

@@ -16,6 +16,8 @@ public interface ItemsGateway extends JpaRepository<Item, String>, ItemsGatewayC
 
     Item findItemByItemNameAndQuality(String type, int quality) ;
 
+    void deleteItemByBasePrice(String id);
+
 }
 
 
