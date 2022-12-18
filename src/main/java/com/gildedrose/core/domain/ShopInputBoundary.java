@@ -21,7 +21,7 @@ public class ShopInputBoundary extends ShopInteractor{
 
         Item item = this.getRepository().findItemByItemNameAndQuality(request.getType(),request.getQuality());
         int value = item.getValue();
-        this.setBalance(this.getBalance()+value);
+        this.shopBalance= this.shopBalance + value ;
         itemsGateway.deleteItemByBasePrice(item.getId());
     }
 
