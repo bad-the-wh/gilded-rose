@@ -22,9 +22,15 @@ public class ShopInputBoundary extends ShopInteractor{
     public void sellItem(SellItemRequest request) {
 
         Item item = this.getRepository().findItemByItemNameAndQuality(request.getType(),request.getQuality());
-        int value = item.getValue();
-        this.setShopBalance(this.getShopBalance()+value);
-        this.getRepository().deleteItemByBasePrice(item.getId());
+        if (!(item == null)){        
+            int value = item.getValue();
+
+            this.setShopBalance(this.getShopBalance()+value);
+            this.getRepository().deleteItemByBasePrice(item.getId());
+        }
+        else {
+            System.out.println("l'article n'est pas present");
+        }
     }
 
 }

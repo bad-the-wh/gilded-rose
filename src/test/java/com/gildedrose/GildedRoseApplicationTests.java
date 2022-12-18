@@ -207,13 +207,16 @@ class GildedRoseApplicationTests {
 		items.add(item);
 		shopInput.getRepository().saveInventory(items);
 		SellItemRequest request = new SellItemRequest(item.getItemName(), item.getQuality());
-		
-	     assertEquals(80,shopInput.getShopBalance());
+		shopInput.sellItem(request);
+	     assertEquals(90,shopInput.getShopBalance());
 	}
 
-/*	@Test
-	void should_warning_in_case_of_item_not_found() throws ItemNotFoundException {
-	    shopInput.sellItem("test", 0);
+	@Test
+	void should_warning_in_case_of_item_not_found() {
+		Item item = GenericItem.builder().id(UUID.randomUUID().toString()).itemName("GenericItem").sellIn(5).quality(8).basePrice(10).build();
+		items.add(item);
+		shopInput.getRepository().saveInventory(items);
+		SellItemRequest request = new SellItemRequest("test", 0);
+	    shopInput.sellItem(request);
 	}
-*/
 }
