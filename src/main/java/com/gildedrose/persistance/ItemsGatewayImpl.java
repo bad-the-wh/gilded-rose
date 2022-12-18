@@ -87,29 +87,54 @@ public class ItemsGatewayImpl implements ItemsGateway{
     @Override
     public Item findItemByItemNameAndQuality(String type, int quality)  {
 
-        Query q = em.createNativeQuery("SELECT * FROM ITEMS  WHERE ITEMS.NAME = ?1 AND ITEMS.QUALITY = ?2", Item.class);
-        q.setParameter(1, type);
-        q.setParameter(2, quality);
+        /*Query q = em.createNativeQuery("SELECT * FROM ITEMS  WHERE ITEMS.NAME = ?1 AND ITEMS.QUALITY = ?2")
+                .setParameter(1, type)
+                .setParameter(2, quality);
+
         Iterator itr = q.getResultList().iterator();
-        Object[] obj = (Object[]) itr.next();
-        if(obj[1] == null){
-            return null;
+        Item item = null;
+
+
+
+        if(itr.hasNext()){
+
+            Object[] obj = (Object[]) itr.next();
+
+            if(obj[1] == null){
+                item = null;
+            }
+            else if( obj[1].equals("LegendaryItem")){
+                item = LegendaryItem.builder().id((String) obj[0]).itemName((String) obj[1]).sellIn((Integer) obj[2]).quality((Integer) obj[3]).basePrice((Integer) obj[4]).build();
+            }
+            else if(obj[1].equals("AgingItem")){
+                item = AgingItem.builder().id((String) obj[0]).itemName((String) obj[1]).sellIn((Integer) obj[2]).quality((Integer) obj[3]).basePrice((Integer) obj[4]).build();
+            }
+            else if(obj[1].equals("EventItem")){
+                item = EventItem.builder().id((String) obj[0]).itemName((String) obj[1]).sellIn((Integer) obj[2]).quality((Integer) obj[3]).basePrice((Integer) obj[4]).build();
+            }
+            else if(obj[1].equals("ConjuredItem")){
+                item = ConjuredItem.builder().id((String) obj[0]).itemName((String) obj[1]).sellIn((Integer) obj[2]).quality((Integer) obj[3]).basePrice((Integer) obj[4]).build();
+            }
+            else{
+                item = GenericItem.builder().id((String) obj[0]).itemName((String) obj[1]).sellIn((Integer) obj[2]).quality((Integer) obj[3]).basePrice((Integer) obj[4]).build();
+            }
         }
-        else if(obj[1] == "LegendaryItem"){
-            return LegendaryItem.builder().id((String) obj[0]).itemName((String) obj[2]).sellIn((Integer) obj[2]).quality((Integer) obj[3]).basePrice((Integer) obj[4]).build();
+
+        return item;*/
+
+        Item item = null;
+
+        for (Item i : items){
+
+            if(i.getItemName().equals(type) && i.getQuality() == quality){
+
+                 item = i;
+
+            }
+
         }
-        else if(obj[1] == "AgingItem"){
-            return AgingItem.builder().id((String) obj[0]).itemName((String) obj[2]).sellIn((Integer) obj[2]).quality((Integer) obj[3]).basePrice((Integer) obj[4]).build();
-        }
-        else if(obj[1] == "EventItem"){
-            return EventItem.builder().id((String) obj[0]).itemName((String) obj[2]).sellIn((Integer) obj[2]).quality((Integer) obj[3]).basePrice((Integer) obj[4]).build();
-        }
-        else if(obj[1] == "ConjuredItem"){
-            return ConjuredItem.builder().id((String) obj[0]).itemName((String) obj[2]).sellIn((Integer) obj[2]).quality((Integer) obj[3]).basePrice((Integer) obj[4]).build();
-        }
-        else{
-            return GenericItem.builder().id((String) obj[0]).itemName((String) obj[2]).sellIn((Integer) obj[2]).quality((Integer) obj[3]).basePrice((Integer) obj[4]).build();
-        }
+
+        return item;
     }
 
     @Override

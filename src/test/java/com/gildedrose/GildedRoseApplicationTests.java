@@ -189,7 +189,7 @@ class GildedRoseApplicationTests {
 		
 	}
 
-/* 	@Test
+    @Test
 	void should_found_item_in_inventory(){
 		Item item = AgingItem.builder().id(UUID.randomUUID().toString()).itemName("AgingItem").sellIn(5).quality(50).basePrice(10).build();
 		items.add(item);
@@ -200,7 +200,7 @@ class GildedRoseApplicationTests {
 
 		assertEquals(item, shopInput.getRepository().findItemByItemNameAndQuality(name, quality));
 	}
-*/
+
 	@Test
 	void should_update_shop_solde_after_selling_item(){
 		Item item = GenericItem.builder().id(UUID.randomUUID().toString()).itemName("GenericItem").sellIn(5).quality(8).basePrice(10).build();
