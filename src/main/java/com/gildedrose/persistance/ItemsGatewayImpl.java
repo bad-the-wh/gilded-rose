@@ -88,10 +88,10 @@ public class ItemsGatewayImpl implements ItemsGateway{
     public Item findItemByItemNameAndQuality(String type, int quality)  {
 
         Query q = em.createNativeQuery("SELECT * FROM ITEMS  WHERE ITEMS.NAME = ?1 AND ITEMS.QUALITY = ?2", Item.class);
+        q.setParameter(1, type);
+        q.setParameter(2, quality);
         Iterator itr = q.getResultList().iterator();
         Object[] obj = (Object[]) itr.next();
-        q.setParameter(1, obj[1]);
-        q.setParameter(2, obj[3]);
         if(obj[1] == null){
             return null;
         }
