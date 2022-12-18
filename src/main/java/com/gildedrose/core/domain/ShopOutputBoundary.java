@@ -1,13 +1,18 @@
 package com.gildedrose.core.domain;
 
 import com.gildedrose.core.domain.item.Item;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 
-import java.io.FileNotFoundException;
 import java.util.List;
 
+
+@SuperBuilder
+@Getter
+@Setter
 public class ShopOutputBoundary extends ShopInteractor  {
 
-    public void DisplayInventory() throws FileNotFoundException {
+    public void DisplayInventory() {
 
         List<Item> items = this.getRepository().findItemsBy();
         System.out.print(items);

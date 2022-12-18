@@ -134,9 +134,9 @@ public class ItemsGatewayImpl implements ItemsGateway{
     }
 
     @Override
-    public void delete(Item entity) {
+    public void delete(Item item) {
         em.createNativeQuery("DELETE FROM ITEMS where SELLIN = ?1, QUALITY = ?2 WHERE ID = ?3")
-        .setParameter(3, item.getId())
+        .setParameter(3,    item.getId())
         .setParameter(1, item.getSellIn())
         .setParameter(2, item.getQuality())
         .executeUpdate();      

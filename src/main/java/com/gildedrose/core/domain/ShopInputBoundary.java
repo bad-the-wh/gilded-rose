@@ -1,16 +1,18 @@
 package com.gildedrose.core.domain;
 
 import com.gildedrose.core.domain.item.Item;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 
-
+@SuperBuilder
+@Getter
+@Setter
 public class ShopInputBoundary extends ShopInteractor{
 
     private SellItemRequest sellItemRequest;
 
     private int shopBalance;
-
-    ItemsGateway itemsGateway;
 
     public void updateInventory(Item item) {
 
@@ -21,8 +23,8 @@ public class ShopInputBoundary extends ShopInteractor{
 
         Item item = this.getRepository().findItemByItemNameAndQuality(request.getType(),request.getQuality());
         int value = item.getValue();
-        this.setBalance(this.getBalance()+value);
-        itemsGateway.deleteItemByBasePrice(item.getId());
+        this.setShopBalance(this.getShopBalance()+value);
+        this.getRepository().deleteItemByBasePrice(item.getId());
     }
 
 }
