@@ -22,11 +22,16 @@ public class ShopInputBoundary extends ShopInteractor{
     public void sellItem(SellItemRequest request) {
 
         Item item = this.getRepository().findItemByItemNameAndQuality(request.getType(),request.getQuality());
-        if (!(item == null)){        
+        if (!(item == null)){  
+            if(item.getItemName() == "RecycleItem"){
+                System.out.println("l'objet ne peut pas etre vendue");
+            }
+            else{      
             int value = item.getValue();
 
             this.setShopBalance(this.getShopBalance()+value);
             this.getRepository().deleteItemByBasePrice(item.getId());
+            }
         }
         else {
             System.out.println("l'article n'est pas present");
