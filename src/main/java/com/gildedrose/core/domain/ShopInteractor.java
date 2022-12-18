@@ -15,6 +15,7 @@ import java.util.List;
 public class ShopInteractor {
 
     private ItemsGateway repository;
+    private int balance;
 
     public void updateQuality() {
         List<Item> items = repository.findItemsBy();
@@ -24,5 +25,11 @@ public class ShopInteractor {
         }
     }
 
+    public int getBalance(){
+        return this.balance;
+    }
 
+    public void setBalance(int balance){
+        this.balance = balance;
+    }
 }
