@@ -13,14 +13,14 @@
         <tr>
           <td>
             <h1 style="text-align: center;">Shop Balance</h1>
-            <p th:text="{Balance}"/>
+            <p/>
           </td>
           <td style="text-align: center;">
             <div>
               <h1>FIND ITEM</h1>
             </div>
             <form action="#" th:action="@{/Item}" th:object="${com.gildedrose.core.domain.item.Item}" method="post">
-              <div>Item : <input name="Item" type="text" th:field="*{itemName}"></div>
+              <div>Item : <input name="name" type="text" th:field="*{itemName}"></div>
               <div> Quality: <input name="Quality" type="number" th:field="*{quality}"></div>
               <input value="Submit" type="submit">
             </form>

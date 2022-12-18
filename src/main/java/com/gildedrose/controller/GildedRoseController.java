@@ -28,10 +28,26 @@ public class GildedRoseController {
         return modelAndView;
     }
 
-    @RequestMapping("/")
+    //@RequestMapping("/")
     public void showShopBalance(){
 
         shopOutputBoundary.DisplayBalance(shopInputBoundary.getShopBalance());
+
+    }
+
+    @RequestMapping(value = "/Items/{name}", method = RequestMethod.GET)
+    public @ResponseBody String getItemName(@RequestParam(value = "name") String itemName) {
+        return itemName;
+    }
+
+    @RequestMapping(value = "/Items/{quality}", method = RequestMethod.GET)
+    public @ResponseBody int getQuality(@RequestParam(value = "quality") int quality) {
+        return quality;
+    }
+
+    public Item sellItem(String itemName, int quality){
+
+        return shopOutputBoundary.getRepository().findItemByItemNameAndQuality(getItemName(itemName), getQuality(quality));
 
     }
 
