@@ -207,14 +207,13 @@ class GildedRoseApplicationTests {
 		items.add(item);
 		shop.getRepository().saveInventory(items);
 		SellItemRequest request = new SellItemRequest(item.getItemName(), item.getQuality());
-
-	     assertEquals(80,shop.getRepository().sellItem(request));
-
+		
+	     assertEquals(80,shop.getBalance());
 	}
 
-	//@Test
-	//void should_warning_in_case_of_item_not_found() throws ItemNotFoundException {
-	//    shop.sellItem("test", 0);
-	//}
+/*	@Test
+	void should_warning_in_case_of_item_not_found() throws ItemNotFoundException {
+	    shop.sellItem("test", 0);
+	}
 */
 }
