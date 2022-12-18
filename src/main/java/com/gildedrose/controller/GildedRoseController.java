@@ -2,9 +2,12 @@ package com.gildedrose.controller;
 
 import com.gildedrose.core.domain.ShopInputBoundary;
 import com.gildedrose.core.domain.ShopOutputBoundary;
+import com.gildedrose.core.domain.item.GenericItem;
 import com.gildedrose.core.domain.item.Item;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -25,17 +28,10 @@ public class GildedRoseController {
         return modelAndView;
     }
 
-    @RequestMapping("/Balance")
+    @RequestMapping("/")
     public void showShopBalance(){
 
-        shopOutputBoundary.DisplayBalance(shopInputBoundary.getBalance());
-
-    }
-
-    @RequestMapping("/findItem")
-    public Item findItem(String name, int quality){
-
-        return shopInputBoundary.getRepository().findItemByItemNameAndQuality(name, quality);
+        shopOutputBoundary.DisplayBalance(shopInputBoundary.getShopBalance());
 
     }
 

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="https://www.thymeleaf.org">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE-edge">
@@ -13,16 +13,18 @@
         <tr>
           <td>
             <h1 style="text-align: center;">Shop Balance</h1>
-            <h1> </h1>
+            <p th:text="{Balance}"/>
           </td>
           <td style="text-align: center;">
             <div>
               <h1>FIND ITEM</h1>
             </div>
-            <div>Item : <input name="Item" type="text"></div>
-            <div> Quality: <input name="Quality" type="number"></div>
-            <input value="Submit" type="submit"> </td>
-
+            <form action="#" th:action="@{/Item}" th:object="${com.gildedrose.core.domain.item.Item}" method="post">
+              <div>Item : <input name="Item" type="text" th:field="*{itemName}"></div>
+              <div> Quality: <input name="Quality" type="number" th:field="*{quality}"></div>
+              <input value="Submit" type="submit">
+            </form>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -34,7 +36,7 @@
           </td>
         </tr>
       </tbody>
-    
+    </table>
     
   </body>
 </html>

@@ -88,27 +88,27 @@ public class ItemsGatewayImpl implements ItemsGateway{
     public Item findItemByItemNameAndQuality(String type, int quality)  {
 
         Query q = em.createNativeQuery("SELECT * FROM ITEMS  WHERE ITEMS.NAME = ?1 AND ITEMS.QUALITY = ?2", Item.class);
-        List<Item> findAllItems = q.getResultList();
-        Item i = findAllItems.get(0);
-        q.setParameter(1, type);
-        q.setParameter(2, quality);
-        if(i == null){
+        Iterator itr = q.getResultList().iterator();
+        Object[] obj = (Object[]) itr.next();
+        q.setParameter(1, obj[1]);
+        q.setParameter(2, obj[3]);
+        if(obj[1] == null){
             return null;
         }
-        else if(i.getItemName() == "LegendaryItem"){
-            return LegendaryItem.builder().sellIn(i.getSellIn()).quality(i.getQuality()).basePrice(i.getBasePrice()).build();
+        else if(obj[1] == "LegendaryItem"){
+            return LegendaryItem.builder().id((String) obj[0]).itemName((String) obj[2]).sellIn((Integer) obj[2]).quality((Integer) obj[3]).basePrice((Integer) obj[4]).build();
         }
-        else if(i.getItemName() == "AgingItem"){
-            return AgingItem.builder().sellIn(i.getSellIn()).quality(i.getQuality()).basePrice(i.getBasePrice()).build();
+        else if(obj[1] == "AgingItem"){
+            return AgingItem.builder().id((String) obj[0]).itemName((String) obj[2]).sellIn((Integer) obj[2]).quality((Integer) obj[3]).basePrice((Integer) obj[4]).build();
         }
-        else if(i.getItemName() == "EventItem"){
-            return EventItem.builder().sellIn(i.getSellIn()).quality(i.getQuality()).basePrice(i.getBasePrice()).build();
+        else if(obj[1] == "EventItem"){
+            return EventItem.builder().id((String) obj[0]).itemName((String) obj[2]).sellIn((Integer) obj[2]).quality((Integer) obj[3]).basePrice((Integer) obj[4]).build();
         }
-        else if(i.getItemName() == "ConjuredItem"){
-            return ConjuredItem.builder().sellIn(i.getSellIn()).quality(i.getQuality()).basePrice(i.getBasePrice()).build();
+        else if(obj[1] == "ConjuredItem"){
+            return ConjuredItem.builder().id((String) obj[0]).itemName((String) obj[2]).sellIn((Integer) obj[2]).quality((Integer) obj[3]).basePrice((Integer) obj[4]).build();
         }
         else{
-            return GenericItem.builder().sellIn(i.getSellIn()).quality(i.getQuality()).basePrice(i.getBasePrice()).build();
+            return GenericItem.builder().id((String) obj[0]).itemName((String) obj[2]).sellIn((Integer) obj[2]).quality((Integer) obj[3]).basePrice((Integer) obj[4]).build();
         }
     }
 
@@ -130,16 +130,6 @@ public class ItemsGatewayImpl implements ItemsGateway{
                 .setParameter(1, item.getSellIn())
                 .setParameter(2, item.getQuality())
                 .executeUpdate();
-
-    }
-
-    @Override
-    public void delete(Item item) {
-        em.createNativeQuery("DELETE FROM ITEMS where SELLIN = ?1, QUALITY = ?2 WHERE ID = ?3")
-        .setParameter(3,    item.getId())
-        .setParameter(1, item.getSellIn())
-        .setParameter(2, item.getQuality())
-        .executeUpdate();      
 
     }
 
@@ -264,7 +254,12 @@ public class ItemsGatewayImpl implements ItemsGateway{
 
     }
 
-    
+    @Override
+    public void delete(Item entity) {
+
+    }
+
+
     @Override
     public void deleteAllById(Iterable<? extends String> strings) {
 
